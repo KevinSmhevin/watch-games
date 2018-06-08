@@ -1,6 +1,14 @@
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/'
 const STATE = {
     query: "",
+    searchResults: {
+        streams: [
+            {
+            channel: {
+                name: 'ninja'
+            }
+        }]
+    }
 }
 
 function getGameStream(searchGame, callback) {
@@ -9,7 +17,8 @@ function getGameStream(searchGame, callback) {
         game: `${searchGame}`,
         query: `${searchGame}`,
         stream_type: 'live',
-        limit: 5
+        format: 'jsonp',
+        limit: 1
     }
     $.getJSON(TWITCH_STREAM_URL, twitchQueryData, callback)
 }
@@ -38,20 +47,30 @@ function render(state) {
 }
 
 function displayTwitchStream(data) {
-    const results = data.streams.map((item, index) => renderResult(item));
+    const results = data.streams.map((item, index) => renderResult(item)).join("");
     $('.main-content').html(results);
 }
 
 function renderResult(result) {
     return `
     <div>
-        <a href="https://www.twitch.tv/${result.channel.name}" target="_blank">${result.channel.name}</a><br>
-        <a href="https://www.twitch.tv/${result.channel.name}" target="_blank"><img src="${result.preview.medium}"</a>
+        <a href="${result.channel.url}" target="_blank">${result.channel.name}</a><br>
+        <iframe
+            src="http://player.twitch.tv/?channel=${result.channel.name}"
+            height="300"
+            width="400"
+            frameborder="2"
+            scrolling="no"
+            allowfullscreen="true"
+            autoplay="true">
+        </iframe>
     </div>
     `
 }
+//<a href="${result.channel.url}" target="_blank"><img src="${result.preview.medium}"</a>
 
 function loadPage() {
+    render(STATE);
     watchSubmit();
 }
 
