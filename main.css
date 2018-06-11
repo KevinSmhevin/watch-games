@@ -66,33 +66,29 @@ header {
   font-size: .75em;
 }
 
-input {
+.search-query {
   width: 60%;
-  height: 30px;
   border-radius: 2.5px;
-  margin: auto;
   border: 2px solid black;
   font-size: 1em;
   height: 55px;
   color: black;
+  margin-right: 5px;
 }
 
 .twitch-search {
-  margin: auto;
+  display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 60%;
+  width: 100%;
 }
 
 .submit-button {
-  margin: auto;
   width: 32%; 
-  height: 50px;
   border-radius: 2.5px;
   border: 2px solid black;
   color: black;
   text-align: center;
-  padding-bottom: 15px;
   font-size: .75em;
 }
 
@@ -145,13 +141,11 @@ footer {
 
   .submit-button {
     width: 13%;
-    height: 65px;
     font-size: 1em;
   }
 
-  input {
+  .search-query {
     width: 28%;
-    height: 55px;
   }
 
   .submit-button, .change-streamer, .streamer-name {
