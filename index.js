@@ -32,7 +32,7 @@ function getGameInfo (searchGame, callback) {
     $.getJSON(GIANTBOMB_SEARCH_URL, queryData, callback)
 }
 
-function getGameStream(searchGame, callback) {
+function getGameStream(searchGame, callback, randomNumber) {
     const twitchQueryData = {
         client_id: 'fa5umnj3xn4y05ao1vlqcwn66enqph',
         game: `${searchGame}`,
@@ -60,7 +60,8 @@ function watchChangeStream() {
     $('.main-content').on('click', '.change-streamer', event => {
         event.preventDefault();
         STATE.filter = $('.stream-filter').val();
-        getGameStream(STATE.query, processSearchResults);
+        getNumber(STATE.filter)
+        getGameStream(STATE.query, processSearchResults, randomNumber);
     })
 }
 
@@ -84,7 +85,6 @@ function getNumber(num) {
 
 function render(state) {
     totalStreams = STATE.searchResults._total;
-    getNumber(STATE.filter)
     displayTwitchStream(state.searchResults);
 }
 
