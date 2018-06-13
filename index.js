@@ -1,6 +1,7 @@
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/'
 const STATE = {
     query: "",
+    filter: "",
 }
 let totalStreams;
 let randomNumber;
@@ -43,6 +44,8 @@ function watchSubmit() {
 function watchChangeStream() {
     $('.main-content').on('click', '.change-streamer', event => {
         event.preventDefault();
+        const streamFilter = $('.stream-filter').val();
+        STATE.filter = streamFilter.val();
         getGameStream(STATE.query, processSearchResults);
     })
 }
@@ -52,9 +55,30 @@ function processSearchResults(data) {
     render(STATE);
 }
 
+function getNumber(num) {
+    if (num === "random") {
+        randomNumber = getRandomInt(totalStreams);
+    } else if (num === "25") {
+        randomNumber = getRandomInt(25)
+    } else if (num === "50") {
+        randomNumber = getRandomInt(50)
+    } else if (num === "100") {
+        randomNumber = getRandomInt(100)
+    }
+    return randomNumber
+}
+
 function render(state) {
     totalStreams = STATE.searchResults._total;
-    randomNumber = getRandomInt(totalStreams);
+    if (STATE.filter === "random") {
+        randomNumber = getRandomInt(totalStreams);
+    } else if (STATE.filter  === 25) {
+        randomNumber = getRandomInt(25)
+    } else if (STATE.filter  === 50) {
+        randomNumber = getRandomInt(50)
+    } else if (STATE.filter  === 100) {
+        randomNumber = getRandomInt(100)
+    }
     displayTwitchStream(state.searchResults);
 }
 
@@ -86,7 +110,16 @@ function renderResult(result) {
             allowfullscreen="true"
             autoplay="true">
         </iframe><br>
-        <button type="button" class="change-streamer">Change Streamer</button>
+        <form action='#' class="change-stream">
+        <label for="changing-stream"></label>
+        <select name="stream-filter" class="stream-filter">
+        <option value="random">Random</option>
+        <option value="25">Top 25</option>
+        <option value="50">Top 50</option>
+        <option value="100">Top 100</option>
+        </select>
+        <button type="submit" class="change-streamer">Change Streamer</button>
+        </form>
     </div>
     `
 }

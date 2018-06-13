@@ -97,6 +97,9 @@ header {
   background-color:#BFAFB2
 }
 
+.stream-filter, option {
+  color: black;
+}
 img {
     margin: 0 auto;
 }
