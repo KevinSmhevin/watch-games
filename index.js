@@ -44,8 +44,7 @@ function watchSubmit() {
 function watchChangeStream() {
     $('.main-content').on('click', '.change-streamer', event => {
         event.preventDefault();
-        const streamFilter = $('.stream-filter').val();
-        STATE.filter = streamFilter.val();
+        STATE.filter = $('.stream-filter').val();
         getGameStream(STATE.query, processSearchResults);
     })
 }
@@ -70,15 +69,7 @@ function getNumber(num) {
 
 function render(state) {
     totalStreams = STATE.searchResults._total;
-    if (STATE.filter === "random") {
-        randomNumber = getRandomInt(totalStreams);
-    } else if (STATE.filter  === 25) {
-        randomNumber = getRandomInt(25)
-    } else if (STATE.filter  === 50) {
-        randomNumber = getRandomInt(50)
-    } else if (STATE.filter  === 100) {
-        randomNumber = getRandomInt(100)
-    }
+    getNumber(STATE.filter)
     displayTwitchStream(state.searchResults);
 }
 
