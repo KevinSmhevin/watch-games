@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color:#4F69C6;
+  background-color:#BFAFB2;
   margin: 1px;
 }
 
@@ -26,20 +26,19 @@ header {
 }
 
 .mid-container {
-  min-height: 40vh;
+  height: 90vh;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 1.5%;
   margin: 2.5px;
-   background: url('play.jpeg') no-repeat top center fixed;
+  background: url('city2.jpeg') no-repeat bottom center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
-
 
 .streamer-name {
   display: flex;
@@ -61,7 +60,7 @@ header {
   width: 40%;
   height: 25px;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 5px;
   font-size: .75em;
 }
@@ -95,7 +94,7 @@ header {
 .bot-container {
   display: flex;
   padding: 5px;
-  background-color:#4F69C6;
+  background-color:#BFAFB2
 }
 
 img {
@@ -112,11 +111,12 @@ a:visited {
 
 a:hover, .change-streamer:hover, .submit-button:hover {
     background-color: lightseagreen;
+    font-size: 1em;
 }
 
 footer {
   padding: 5px;
-  background-color:#4F69C6;
+  background-color:#BFAFB2;
   font-size: .2em;
 }
 
@@ -130,13 +130,13 @@ footer {
     font-size: 1.25em;
   }
 
-  .stream-video {
+  /* .stream-video {
     width: 840px;
     height: 630px;
-  }
+  } */
 
-  .change-streamer {
-    width: 25%;
+  .change-streamer, .streamer-name {
+    width: 37%;
   }
 
   .submit-button {
@@ -148,9 +148,14 @@ footer {
     width: 28%;
   }
 
-  .submit-button, .change-streamer, .streamer-name {
+  .change-streamer, .streamer-name {
     font-size: 1em;
   }
+
+  a:hover, .change-streamer:hover, .submit-button:hover {
+    background-color: lightseagreen;
+    font-size: 1.25em;
+}
   
   .streamer-name, .change-streamer {
     height: 35px;
@@ -162,9 +167,24 @@ footer {
 
 }
 
+
 @media only screen and (max-width: 399px) {
   .stream-video {
     width: 320px;
     height: 240px;
   }
+}
+
+@media only screen and (min-width: 850px) and (max-width: 1365px) {
+     .stream-video {
+    width: 840px;
+    height: 630px;
+  } 
+}
+
+@media only screen and (min-width: 1366px) {
+  .stream-video {
+    width: 940px;
+    height: 705px;
+  } 
 }
