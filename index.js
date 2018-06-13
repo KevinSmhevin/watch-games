@@ -1,4 +1,6 @@
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/'
+const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
+
 const STATE = {
     query: "",
 }
