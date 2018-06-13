@@ -6,9 +6,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
+ul {
+  list-style-type: none;
+}
 .top-container {
   padding: 5px;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
   background-color:#BFAFB2;
@@ -91,8 +95,18 @@ header {
   font-size: .75em;
 }
 
+.guide-button {
+  width: 15%;
+  border-radius: 2.5px;
+  border: 2px solid black;
+  color: black;
+  text-align: center;
+  font-size: .75em;
+}
+
 .bot-container {
   display: flex;
+  justify-content: center;
   padding: 5px;
   background-color:#BFAFB2
 }
@@ -112,15 +126,27 @@ a:visited {
     text-decoration: none;
 }
 
-a:hover, .change-streamer:hover, .submit-button:hover {
+a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
     background-color: lightseagreen;
     font-size: 1em;
 }
 
+.filter-label {
+  background-color: black;
+}
 footer {
   padding: 5px;
   background-color:#BFAFB2;
-  font-size: .2em;
+  font-size: .5em;
+}
+
+.game-summary {
+  width: 50%;
+  background-color: black;
+}
+
+.error-message {
+  background-color: black;
 }
 
 @media only screen and (min-width: 850px) {
@@ -164,8 +190,9 @@ footer {
     height: 35px;
   }
 
+
   footer {
-    font-size: .5em;
+    font-size: .75em;
   }
 
 }

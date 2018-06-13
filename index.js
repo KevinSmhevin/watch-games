@@ -15,21 +15,32 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-let errorMessage = `   <div>
-Sorry, we can't find that game :(
+let errorMessage = `   <div class="error-message">
+Sorry, we can't find that game :(, please try searching again.
 <div>
   `
+let errorMessage2 = `   <div class="error-message">
+Sorry, there is not enough people streaming this game for that filter :(
+<div>
+    `
 
 function getGameInfo (searchGame, callback) {
-    const queryData = {
-        api_key: `90c7bce2628d7e30be2c973efd4ed4bec505aa14`,
+    const queryData = {      
         url: GIANTBOMB_SEARCH_URL,
-        query: `${searchGame}`,
-        resources: 'game',
-        format: 'jsonp',
-        limit: 1,
+        data: {
+            api_key: '90c7bce2628d7e30be2c973efd4ed4bec505aa14',
+            query: `${searchGame}`,
+            resources: 'game',
+            format: 'jsonp',
+            limit: 1,
+        },
+        dataType: 'jsonp',
+        type: 'GET',
+        crossDomain: true,
+        jsonp: 'json_callback',
+        success: callback,
     }
-    $.getJSON(GIANTBOMB_SEARCH_URL, queryData, callback)
+    $.ajax(queryData);
 }
 
 function getGameStream(searchGame, callback, randomNumber) {
@@ -49,10 +60,12 @@ function getGameStream(searchGame, callback, randomNumber) {
 function watchSubmit() {
     $('.twitch-search').submit(event =>{
         event.preventDefault();
+        randomNumber = 0
         const queryTarget = $(event.currentTarget).find('.search-query');
         STATE.query = queryTarget.val();
         queryTarget.val("");
         getGameStream(STATE.query, processSearchResults);
+        getGameInfo(STATE.query, processBombSearchResults);
     });
 }
 
@@ -63,6 +76,11 @@ function watchChangeStream() {
         getNumber(STATE.filter)
         getGameStream(STATE.query, processSearchResults, randomNumber);
     })
+}
+
+function processBombSearchResults(data) {
+    STATE.bombSearchResults = data;
+    render(STATE);
 }
 
 function processSearchResults(data) {
@@ -86,19 +104,48 @@ function getNumber(num) {
 function render(state) {
     totalStreams = STATE.searchResults._total;
     displayTwitchStream(state.searchResults);
+    displayGameInfo(state.bombSearchResults);
+    displayButton()
+}
+
+function displayButton() {
+    $('.guide-button').prop('hidden', false)
+}
+
+function watchGuideButton() {
+    $('.guide-button').click(event => {
+        $('.description').toggle();
+    });
+}
+
+function displayGameInfo(data) {
+    const bombResults = data.results.map((item, index) => renderBombResult(item)).join("");
+    $('.bot-container').html(bombResults)
 }
 
 function displayTwitchStream(data) {
     if (STATE.searchResults._total === 0) {
     $('.main-content').html(errorMessage);
-    } else {
+    }
+    else if (STATE.searchResults._total < randomNumber) {
+    $('.main-content').html(errorMessage2);
+    } 
+    else {
     const results = data.streams.map((item, index) => renderResult(item)).join("");
     $('.main-content').html(results);
-    $('.twitch-search').appendTo('.bot-container')
-    $('.description').remove()
+    // $('.twitch-search').appendTo('.bot-container')
+    $('.description').prop('hidden', true)
     }
 }
 
+function renderBombResult(result) {
+    const platforms = result.platforms.filter(word => word === name).join("");
+    return `
+    <div class="game-summary"> ${result.name} Summary:<br>
+        ${result.deck}
+    </div>
+    `
+}
 
 
 function renderResult(result) {
@@ -117,7 +164,7 @@ function renderResult(result) {
             autoplay="true">
         </iframe><br>
         <form action='#' class="change-stream">
-        <label for="changing-stream"></label>
+        <label for="changing-stream" class="filter-label">Filter Streamers:</label>
         <select name="stream-filter" class="stream-filter">
         <option value="random">Random</option>
         <option value="25">Top 25</option>
@@ -132,9 +179,11 @@ function renderResult(result) {
 //<a href="${result.channel.url}" target="_blank"><img src="${result.preview.medium}"</a>
 
 function loadPage() {
-    // render(STATE);
     watchSubmit();
     watchChangeStream();
+    watchGuideButton();
 }
+
+
 
 $(loadPage);
