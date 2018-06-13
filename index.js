@@ -1,8 +1,12 @@
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/'
+const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
+
 const STATE = {
     query: "",
     filter: "",
 }
+
+
 let totalStreams;
 let randomNumber;
 
@@ -16,7 +20,17 @@ Sorry, we can't find that game :(
 <div>
   `
 
-
+function getGameInfo (searchGame, callback) {
+    const queryData = {
+        api_key: `90c7bce2628d7e30be2c973efd4ed4bec505aa14`,
+        url: GIANTBOMB_SEARCH_URL,
+        query: `${searchGame}`,
+        resources: 'game',
+        format: 'jsonp',
+        limit: 1,
+    }
+    $.getJSON(GIANTBOMB_SEARCH_URL, queryData, callback)
+}
 
 function getGameStream(searchGame, callback) {
     const twitchQueryData = {
@@ -30,6 +44,7 @@ function getGameStream(searchGame, callback) {
     }
     $.getJSON(TWITCH_STREAM_URL, twitchQueryData, callback)
 }
+
 
 function watchSubmit() {
     $('.twitch-search').submit(event =>{
