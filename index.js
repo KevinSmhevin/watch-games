@@ -227,7 +227,6 @@ function loadPage() {
     watchChangeStream();
     watchGuideButton();
     watchPlaysVidTest();
-    playsVidTest();
 }
 
 
