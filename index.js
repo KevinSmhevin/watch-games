@@ -2,6 +2,7 @@
 
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/'
 const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
+const PLAYS_URL = 'https://api.plays.tv/data/v1/games'
 let totalStreams;
 let randomNumber;
 
@@ -42,6 +43,22 @@ function getGameInfo (searchGame, callback) {
         success: callback,
     }
     $.ajax(queryData);
+}
+
+function getGameVids(callback) {
+    const playsQueryData = {
+        url: PLAYS_URL,
+        data: {
+            appid: 'B2SXBYBoD5FpNnOaD5NrCY4ZNY-rBnZpO5Ga',
+            appkey: 'fMeN2mzzE-F_nyffAip8Lm4TEBWww387',
+        },
+        dataType: 'json',
+        type: 'GET',
+        crossDomain: true,
+        // jsonp: 'json_callback',
+        success: callback,
+    }
+    $.ajax(playsQueryData)
 }
 
 function getGameStream(searchGame, callback, randomNumber) {
@@ -86,7 +103,21 @@ function watchGuideButton() {
     });
 }
 
+function watchPlaysVidTest() {
+    $('.test-button').click(event => {
+    getGameVids(processPlaysSearchResults)
+    });
+}
+
+function PlaysVidTest() {
+    getGameVids(processPlaysSearchResults)
+}
 // functions for processing search results 
+
+function processPlaysSearchResults(data) {
+    STATE.playsSearchResults = data;
+    render(STATE)
+}
 
 function processGiantBombSearchResults(data) {
     STATE.giantBombSearchResults = data;
@@ -189,10 +220,14 @@ function renderTwitchResult(result) {
 
 //functions for loading all event listeners
 
+
+
 function loadPage() {
     watchSubmit();
     watchChangeStream();
     watchGuideButton();
+    watchPlaysVidTest();
+    playsVidTest();
 }
 
 
