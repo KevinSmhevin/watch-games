@@ -1,28 +1,29 @@
+// all global variables declared 
+
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/'
 const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
+let totalStreams;
+let randomNumber;
 
+// object for storing dynamic query data
 const STATE = {
     query: "",
     filter: "",
 }
 
+// object for storing error messages
+const errors = {
+    noGameError: `   <div class="error-message">
+    Sorry, we can't find that game :(, please try searching again.
+    <div>
+      `,
+    notEnoughStreamsError: `   <div class="error-message">
+    Sorry, there is not enough people streaming this game for that filter :(
+    <div>
+        `,
+}
 
-let totalStreams;
-let randomNumber;
-
- 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
-let errorMessage = `   <div class="error-message">
-Sorry, we can't find that game :(, please try searching again.
-<div>
-  `
-let errorMessage2 = `   <div class="error-message">
-Sorry, there is not enough people streaming this game for that filter :(
-<div>
-    `
+// AJAX or JSONP query functions for API request
 
 function getGameInfo (searchGame, callback) {
     const queryData = {      
@@ -56,16 +57,17 @@ function getGameStream(searchGame, callback, randomNumber) {
     $.getJSON(TWITCH_STREAM_URL, twitchQueryData, callback)
 }
 
+// event listener functions
 
 function watchSubmit() {
-    $('.twitch-search').submit(event =>{
+    $('.twitch-search-form').submit(event =>{
         event.preventDefault();
-        randomNumber = 0
+        randomNumber = 0;
         const queryTarget = $(event.currentTarget).find('.search-query');
         STATE.query = queryTarget.val();
         queryTarget.val("");
-        getGameStream(STATE.query, processSearchResults);
-        getGameInfo(STATE.query, processBombSearchResults);
+        getGameStream(STATE.query, processTwitchSearchResults);
+        getGameInfo(STATE.query, processGiantBombSearchResults);
     });
 }
 
@@ -73,22 +75,36 @@ function watchChangeStream() {
     $('.main-content').on('click', '.change-streamer', event => {
         event.preventDefault();
         STATE.filter = $('.stream-filter').val();
-        getNumber(STATE.filter)
-        getGameStream(STATE.query, processSearchResults, randomNumber);
+        getRandomNumber(STATE.filter)
+        getGameStream(STATE.query, processTwitchSearchResults, randomNumber);
     })
 }
 
-function processBombSearchResults(data) {
-    STATE.bombSearchResults = data;
+function watchGuideButton() {
+    $('.guide-button').click(event => {
+        $('.guide-description').toggle();
+    });
+}
+
+// functions for processing search results 
+
+function processGiantBombSearchResults(data) {
+    STATE.giantBombSearchResults = data;
     render(STATE);
 }
 
-function processSearchResults(data) {
-    STATE.searchResults = data;
+function processTwitchSearchResults(data) {
+    STATE.twitchSearchResults = data;
     render(STATE);
 }
 
-function getNumber(num) {
+// math functions for obtaining a random number and random streamer 
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+function getRandomNumber(num) {
     if (num === "random") {
         randomNumber = getRandomInt(totalStreams);
     } else if (num === "25") {
@@ -101,10 +117,12 @@ function getNumber(num) {
     return randomNumber
 }
 
+// render related functions for altering the DOM
+
 function render(state) {
-    totalStreams = STATE.searchResults._total;
-    displayTwitchStream(state.searchResults);
-    displayGameInfo(state.bombSearchResults);
+    totalStreams = STATE.twitchSearchResults._total;
+    displayTwitchStream(state.twitchSearchResults);
+    displayGameInfo(state.giantBombSearchResults);
     displayButton()
 }
 
@@ -112,34 +130,26 @@ function displayButton() {
     $('.guide-button').prop('hidden', false)
 }
 
-function watchGuideButton() {
-    $('.guide-button').click(event => {
-        $('.description').toggle();
-    });
-}
-
 function displayGameInfo(data) {
-    const bombResults = data.results.map((item, index) => renderBombResult(item)).join("");
+    const bombResults = data.results.map((item, index) => renderGiantBombResult(item)).join("");
     $('.bot-container').html(bombResults)
 }
 
 function displayTwitchStream(data) {
-    if (STATE.searchResults._total === 0) {
-    $('.main-content').html(errorMessage);
+    if (STATE.twitchSearchResults._total === 0) {
+    $('.main-content').html(errors.noGameError);
     }
-    else if (STATE.searchResults._total < randomNumber) {
-    $('.main-content').html(errorMessage2);
+    else if (STATE.twitchSearchResults._total < randomNumber) {
+    $('.main-content').html(errors.notEnoughStreamsError);
     } 
     else {
-    const results = data.streams.map((item, index) => renderResult(item)).join("");
+    const results = data.streams.map((item, index) => renderTwitchResult(item)).join("");
     $('.main-content').html(results);
-    // $('.twitch-search').appendTo('.bot-container')
-    $('.description').prop('hidden', true)
+    $('.guide-description').prop('hidden', true)
     }
 }
 
-function renderBombResult(result) {
-    const platforms = result.platforms.filter(word => word === name).join("");
+function renderGiantBombResult(result) {
     return `
     <div class="game-summary"> ${result.name} Summary:<br>
         ${result.deck}
@@ -148,7 +158,7 @@ function renderBombResult(result) {
 }
 
 
-function renderResult(result) {
+function renderTwitchResult(result) {
     return `
     <div class="stream-section">
 
@@ -176,7 +186,8 @@ function renderResult(result) {
     </div>
     `
 }
-//<a href="${result.channel.url}" target="_blank"><img src="${result.preview.medium}"</a>
+
+//functions for loading all event listeners
 
 function loadPage() {
     watchSubmit();

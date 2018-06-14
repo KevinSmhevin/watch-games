@@ -1,3 +1,5 @@
+/* main CSS section tailored towards mobile view - ordered from top of HTML to bottom */
+
 * {
     box-sizing: border-box;
     text-align: center;
@@ -6,9 +8,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-ul {
-  list-style-type: none;
-}
 .top-container {
   padding: 5px;
   display: flex;
@@ -24,20 +23,69 @@ header {
   font-size: 1em;
 }
 
-.description {
-  padding-bottom: 1.5%;
+.guide-button {
+  width: 15%;
+  border-radius: 2.5px;
+  border: 2px solid black;
+  color: black;
+  text-align: center;
+  font-size: .6em;
+}
+
+.guide-description {
+  font-size: .75em;
+}
+
+.instructions {
+  font-size: .75em;
+}
+
+ul {
+  -webkit-padding-start: 0px;
+  list-style-type: none;
+  border: 1px solid black;
+  text-align: center;
+}
+
+li {
+  text-align: center;
+}
+
+.twitch-search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-query {
+  width: 60%;
+  border-radius: 2.5px;
+  border: 2px solid black;
+  font-size: 1em;
+  height: 55px;
+  color: black;
+  margin-right: 5px;
+}
+
+.submit-button {
+  width: 32%; 
+  border-radius: 2.5px;
+  border: 2px solid black;
+  color: black;
+  text-align: center;
   font-size: .75em;
 }
 
 .mid-container {
-  height: 90vh;
+  min-height: 65vh;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 1.5%;
   margin: 2.5px;
-  background: url('city2.jpeg') no-repeat bottom center fixed;
+  background: url('pics/city-at-dawn.jpeg') no-repeat bottom center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -69,39 +117,29 @@ header {
   font-size: .75em;
 }
 
-.search-query {
-  width: 60%;
-  border-radius: 2.5px;
-  border: 2px solid black;
+.stream-filter, option {
+  color: black;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
+  background-color: lightseagreen;
   font-size: 1em;
-  height: 55px;
-  color: black;
-  margin-right: 5px;
 }
 
-.twitch-search {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+.filter-label {
+background-color: black;
 }
 
-.submit-button {
-  width: 32%; 
-  border-radius: 2.5px;
-  border: 2px solid black;
-  color: black;
-  text-align: center;
-  font-size: .75em;
-}
-
-.guide-button {
-  width: 15%;
-  border-radius: 2.5px;
-  border: 2px solid black;
-  color: black;
-  text-align: center;
-  font-size: .75em;
+.error-message {
+  background-color: black;
 }
 
 .bot-container {
@@ -111,43 +149,19 @@ header {
   background-color:#BFAFB2
 }
 
-.stream-filter, option {
-  color: black;
-}
-img {
-    margin: 0 auto;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
-    background-color: lightseagreen;
-    font-size: 1em;
-}
-
-.filter-label {
+.game-summary {
+  width: 50%;
+  font-size: .75em;
   background-color: black;
 }
+
 footer {
   padding: 5px;
   background-color:#BFAFB2;
   font-size: .5em;
 }
 
-.game-summary {
-  width: 50%;
-  background-color: black;
-}
-
-.error-message {
-  background-color: black;
-}
+/*  CSS section meant for laptop/computer screens */
 
 @media only screen and (min-width: 850px) {
 
@@ -155,17 +169,16 @@ footer {
     font-size: 1.75em;
   }
 
-  .description {
+  .guide-description {
     font-size: 1.25em;
   }
 
-  /* .stream-video {
-    width: 840px;
-    height: 630px;
-  } */
+  .search-query {
+    width: 28%;
+  }
 
-  .change-streamer, .streamer-name {
-    width: 37%;
+  .guide-button {
+    font-size: .75em;
   }
 
   .submit-button {
@@ -173,23 +186,20 @@ footer {
     font-size: 1em;
   }
 
-  .search-query {
-    width: 28%;
-  }
-
   .change-streamer, .streamer-name {
+    width: 37%;
     font-size: 1em;
+    height: 35px;
   }
 
   a:hover, .change-streamer:hover, .submit-button:hover {
     background-color: lightseagreen;
     font-size: 1.25em;
 }
-  
-  .streamer-name, .change-streamer {
-    height: 35px;
-  }
 
+  .game-summary {
+    font-size: 1em;
+  }
 
   footer {
     font-size: .75em;
@@ -197,6 +207,7 @@ footer {
 
 }
 
+/* responsive CSS section for video-emb size */
 
 @media only screen and (max-width: 399px) {
   .stream-video {
