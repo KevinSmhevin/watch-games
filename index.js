@@ -55,7 +55,6 @@ function getGameVids(callback) {
         dataType: 'json',
         type: 'GET',
         crossDomain: true,
-        // jsonp: 'json_callback',
         success: callback,
     }
     $.ajax(playsQueryData)
@@ -116,7 +115,7 @@ function PlaysVidTest() {
 
 function processPlaysSearchResults(data) {
     STATE.playsSearchResults = data;
-    render(STATE)
+    renderPlaysContent(data)
 }
 
 function processGiantBombSearchResults(data) {
@@ -128,6 +127,7 @@ function processTwitchSearchResults(data) {
     STATE.twitchSearchResults = data;
     render(STATE);
 }
+
 
 // math functions for obtaining a random number and random streamer 
 
@@ -162,8 +162,8 @@ function displayButton() {
 }
 
 function displayGameInfo(data) {
-    const bombResults = data.results.map((item, index) => renderGiantBombResult(item)).join("");
-    $('.bot-container').html(bombResults)
+    const giantBombResults = data.results.map((item, index) => renderGiantBombResult(item)).join("");
+    $('.bot-container').html(giantBombResults)
 }
 
 function displayTwitchStream(data) {
@@ -177,6 +177,17 @@ function displayTwitchStream(data) {
     const results = data.streams.map((item, index) => renderTwitchResult(item)).join("");
     $('.main-content').html(results);
     $('.guide-description').prop('hidden', true)
+    }
+}
+
+function renderPlaysContent(data) {
+    // for (i=0; i < data.length; i++) {
+        data.content.games
+        for (var keys in obj) {
+            if (obj.keys === STATE.query) {
+                STATE.gameID = obj.id 
+            }
+        }
     }
 }
 
