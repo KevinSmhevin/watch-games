@@ -24,7 +24,6 @@ header {
 }
 
 .guide-button {
-  width: 15%;
   border-radius: 2.5px;
   border: 2px solid black;
   color: black;
@@ -53,25 +52,24 @@ li {
 
 .twitch-search-form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  padding: 2px;
 }
 
 .search-query {
-  width: 60%;
+  width: 100%;
   border-radius: 2.5px;
-  border: 2px solid black;
+  border: 1px solid black;
   font-size: 1em;
-  height: 55px;
   color: black;
-  margin-right: 5px;
+  margin-bottom: 2px; 
 }
 
 .submit-button {
-  width: 32%; 
+  width: 100%;
   border-radius: 2.5px;
-  border: 2px solid black;
+  border: 1px solid black;
   color: black;
   text-align: center;
   font-size: .75em;
@@ -181,6 +179,16 @@ footer {
     font-size: .75em;
   }
 
+  .twitch-search-form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .search-query {
+    width: 50%;
+    margin-right: 5px;
+    margin-bottom: 0px;
+  }
   .submit-button {
     width: 13%;
     font-size: 1em;
@@ -204,6 +212,7 @@ footer {
   footer {
     font-size: .75em;
   }
+
 
 }
 
