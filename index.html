@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -12,7 +12,7 @@
       <header>
           <h1>Watch Games</h1>
       </header>
-      <button type="button" class="guide-button" hidden>Getting Started Guide</button>
+      <button type="button" class="guide-button" aria-live="assertive" hidden>Getting Started Guide</button>
       <div class ="guide-description">
        Watch Games allows you to watch random streamers from your favorite games on Twitch.<br> 
        Search a game to get started!<br> 
@@ -24,18 +24,18 @@
        </ul>
       </div>
     </div>
-      <form action='#' class="twitch-search-form">
+      <form action='#' role="form" class="twitch-search-form">
         <label for="query"></label>
-        <input class="search-query" type="text" placeholder="Fortnite , League Of Legends, Overwatch ETC...">
+        <input class="search-query" type="text" name="search-query" placeholder="Fortnite , League Of Legends, Overwatch ETC...">
         <button type="submit" class="submit-button">Search <img src="pics/twitch.png" alt=""></button>
       </form>
     <div class="mid-container">
-      <main role="main" class="main-content">  
+      <main role="main" class="main-content" aria-live="assertive">  
       </main>
     </div>
-    <div class="bot-container"></div>
-    <footer>
-      Twitch Icon made by Pixel Perfect from www.flaticon.com 
+    <div class="bot-container" aria-live="assertive"></div>
+    <footer role="contentinfo">
+      Twitch Icon made by Pixel Perfect from www.flaticon.com. Game streams provided by Twitch.tv. Game descriptions provided by Giantbomb.com. 
     </footer>
      <script
         src="https://code.jquery.com/jquery-3.3.1.js"

@@ -173,7 +173,7 @@ function renderTwitchResult(result) {
             allowfullscreen="true"
             autoplay="true">
         </iframe><br>
-        <form action='#' class="change-stream">
+        <form action='#' role="form" class="change-stream">
         <label for="changing-stream" class="filter-label">Filter Streamers:</label>
         <select name="stream-filter" class="stream-filter">
         <option value="random">Random</option>
