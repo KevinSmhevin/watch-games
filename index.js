@@ -100,7 +100,7 @@ function renderTwitchResult(result) {
             <a href="${result.channel.url}" target="_blank" class="streamer-name">Watching: ${result.channel.name}</a>
             <iframe
                 class="stream-video"
-                src="http://player.twitch.tv/?channel=${result.channel.name}"
+                src="https://player.twitch.tv/?channel=${result.channel.name}"
                 height="300"
                 width="400"M
                 frameborder="2"
