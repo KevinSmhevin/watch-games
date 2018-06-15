@@ -142,6 +142,7 @@ a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
 
 .error-message {
    background-color: #161824; 
+   font-size: 1.5em;
 }
 
 .bot-container {
