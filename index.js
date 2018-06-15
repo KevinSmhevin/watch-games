@@ -27,6 +27,9 @@ const errors = {
   giantBombError: `<div class="error-message">
         Please try again
         <div>`,
+  noUserInput: `<div class="error-message">
+    Please type a game in the searchbox
+  <div>`,
 };
 
 // AJAX or JSONP query functions for API request
@@ -140,6 +143,8 @@ function displayTwitchStream(data) {
     $('.main-content').html(errors.noGameError);
   } else if (STATE.twitchSearchResults._total < STATE.randomNumber) {
     $('.main-content').html(errors.notEnoughStreamsError);
+  } else if (STATE.query === '') {
+    $('.main-content').html(errors.noUserInput);
   } else {
     const results = data.streams.map(item => renderTwitchResult(item)).join('');
     $('.main-content').html(results);

@@ -24,7 +24,7 @@ header {
 }
 
 .guide-button {
-  border-radius: 2.5px;
+  border-radius: 5px;
   border: 2px solid black;
   color: black;
   text-align: center;
@@ -83,7 +83,8 @@ li {
   align-items: center;
   padding-bottom: 1.5%;
   margin: 2.5px;
-  background: url('pics/night-sky.jpeg') no-repeat bottom center fixed;
+  background: url('pics/wooden.jpg') no-repeat bottom center fixed; 
+  background-color: #A4958E;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -104,6 +105,7 @@ li {
 }
 
 .change-streamer {
+  border-radius: 5px;
   border: 2px solid #A49693;
   background-color: #252A3D;
   color: white;
@@ -133,11 +135,13 @@ a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
 }
 
 .filter-label {
-background-color: #161824;
+  background-color: lightseagreen;
+  padding: 5px;
+  border: 2px solid black;
 }
 
 .error-message {
-  background-color: #161824;
+   background-color: #161824; 
 }
 
 .bot-container {
