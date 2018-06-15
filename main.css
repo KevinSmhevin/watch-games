@@ -64,6 +64,7 @@ li {
   font-size: 1em;
   color: black;
   margin-bottom: 2px; 
+  text-align: left;
 }
 
 .submit-button {
@@ -83,8 +84,7 @@ li {
   align-items: center;
   padding-bottom: 1.5%;
   margin: 2.5px;
-  background: url('pics/wooden.jpg') no-repeat bottom center fixed; 
-  background-color: #A4958E;
+  background: url('pics/sky.jpeg') no-repeat bottom center fixed;  
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -104,22 +104,37 @@ li {
   margin-bottom: 5px;
 }
 
+.change-stream-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.filter-label {
+  padding: 3px;
+  background-color: #252A3D;
+  margin-right: 4px;
+  border-radius: 5px;
+}
+
+.stream-filter{
+  border-radius: 5px;
+}
+.stream-filter, option {
+  color: #161824;
+}
+
 .change-streamer {
   border-radius: 5px;
   border: 2px solid #A49693;
   background-color: #252A3D;
   color: white;
-  width: 40%;
-  height: 25px;
-  margin: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
   font-size: .75em;
+  margin-left: 4px;
 }
 
-.stream-filter, option {
-  color: #161824;
-}
+
 
 a:link {
     text-decoration: none;
@@ -131,13 +146,6 @@ a:visited {
 
 a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
   background-color: lightseagreen;
-  /* font-size: 1em; */
-}
-
-.filter-label {
-  background-color: lightseagreen;
-  padding: 5px;
-  border: 2px solid black;
 }
 
 .error-message {
@@ -204,12 +212,11 @@ footer {
   .change-streamer, .streamer-name {
     width: 37%;
     font-size: 1em;
-    height: 35px;
+    min-height: 35px;
   }
 
   a:hover, .change-streamer:hover, .submit-button:hover {
     background-color: lightseagreen;
-    /* font-size: 1.25em; */
 }
 
   .game-summary {
