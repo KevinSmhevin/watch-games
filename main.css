@@ -109,6 +109,7 @@ li {
   flex-direction: row;
   justify-content: center;
   margin-top: 5px;
+  padding: 5px;
 }
 
 .filter-label {
@@ -161,7 +162,7 @@ a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
 }
 
 .game-summary {
-  width: 50%;
+  width: 100%;
   font-size: .75em;
   border: 2px solid black;
   margin-bottom: 10px;
@@ -221,6 +222,7 @@ footer {
 
   .game-summary {
     font-size: 1em;
+    width: 50%;
   }
 
   footer {
