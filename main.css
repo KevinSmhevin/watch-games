@@ -43,6 +43,7 @@ header {
   color: black;
   text-align: center;
   font-size: .8em;
+  margin-bottom: 10px;
 }
 
 .guide-description {
@@ -115,6 +116,19 @@ li {
   color: white;
   width: 70%;
   height: 20px;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+.rank-label {
+  font-family: 'Aldrich', sans-serif;
+  display: flex;
+  font-size: .75em;
+  justify-content: center;
+  border: 1px solid #A49693;
+  background-color: #252A3D;
+  color: white;
+  width: 35%;
   margin: auto;
   margin-bottom: 5px;
 }
@@ -309,6 +323,12 @@ footer {
     width: 37%;
     font-size: 1.25em;
     min-height: 35px;
+  }
+
+  .rank-label {
+    width: 15%;
+    font-size: 1em;
+    min-height: 25px;
   }
 
   .change-streamer, .stream-filter, .filter-label {

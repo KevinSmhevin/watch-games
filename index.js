@@ -104,6 +104,7 @@ function renderTwitchResult(result) {
         <div class="stream-section">
     
             <a href="${result.channel.url}" target="_blank" class="streamer-name">Watching: ${result.channel.name}</a>
+            <div class="rank-label">Top: ${STATE.randomNumber + 1}</div>
             <iframe
                 class="stream-video"
                 src="https://player.twitch.tv/?channel=${result.channel.name}"
