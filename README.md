@@ -30,8 +30,21 @@ Technologies Used:
 - Javascript
 - Jquery 
 
+Example games to search for:
+Popular:
+- League Of Legends
+- Fortnite
+- Overwatch
+- Realm Royale
+- Hearthstone
+- Dead by Daylight
 
-
+Less popular: 
+- Dauntless
+- Halo 3 
+- Raft
+- Left 4 Dead 2
+- FIFA 17
 
 
   
