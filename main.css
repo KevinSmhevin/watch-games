@@ -8,11 +8,11 @@
 }
 
 .background {
-  background: url('pics/shattered-island.gif') no-repeat bottom center fixed;  
-  -webkit-background-size: cover;
+  background: url('pics/shattered-island.gif') bottom center fixed;  
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
 }
 
 .top-container {
