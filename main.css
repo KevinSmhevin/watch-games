@@ -26,6 +26,10 @@
   margin: 1px;
 }
 
+.header-banner {
+  width: 100%;
+}
+
 header {
   font-family: 'Aldrich', sans-serif;
   padding-bottom: 1.5%;
@@ -61,6 +65,7 @@ li {
 }
 
 .twitch-search-form {
+  width: 100%;
   font-family: 'Aldrich', sans-serif;
   background: white;
   display: flex;
@@ -221,7 +226,7 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #2196F3;
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 34px;
@@ -241,7 +246,7 @@ section {
 }
 
 .slider-plate:checked + .slider {
-  background-color: #2196F3;
+  background-color: #ccc;
 }
 
 .slider-plate:focus + .slider {
@@ -265,6 +270,9 @@ footer {
 
 @media only screen and (min-width: 850px) {
 
+  .header-banner {
+    width: 50%;
+  }
   header {
     font-size: 1.75em;
   }
