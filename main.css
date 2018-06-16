@@ -8,7 +8,7 @@
 }
 
 .background {
-  background: url('pics/sky.jpeg') no-repeat bottom center fixed;  
+  background: url('pics/shattered-island.gif') no-repeat bottom center fixed;  
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -172,7 +172,6 @@ a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
 
 .error-message {
   font-family: 'Poppins', sans-serif;
-   background-color: #161824; 
    font-size: 1.5em;
 }
 
