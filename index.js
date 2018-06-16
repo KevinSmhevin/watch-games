@@ -4,7 +4,6 @@
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/';
 const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
 let totalStreams;
-// let randomNumber;
 
 // object for storing dynamic query data
 const STATE = {
