@@ -8,6 +8,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.background {
+  background: url('pics/sky.jpeg') no-repeat bottom center fixed;  
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .top-container {
   padding: 5px;
   display: flex;
@@ -51,6 +59,7 @@ li {
 }
 
 .twitch-search-form {
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,11 +93,6 @@ li {
   align-items: center;
   padding-bottom: 1.5%;
   margin: 2.5px;
-  background: url('pics/sky.jpeg') no-repeat bottom center fixed;  
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
 .streamer-name {
@@ -114,8 +118,10 @@ li {
 
 .filter-label {
   padding: 3px;
+  border: 2px solid #A49693;
   background-color: #252A3D;
   margin-right: 4px;
+  font-size: .75em;
   border-radius: 5px;
 }
 
@@ -123,6 +129,7 @@ li {
   border-radius: 5px;
 }
 .stream-filter, option {
+  border: 2px solid #A49693;
   color: #161824;
 }
 
@@ -135,7 +142,9 @@ li {
   margin-left: 4px;
 }
 
-
+.change-streamer:active, .submit-button:active, .guide-button:active {
+  transform: translateY(3px);
+}
 
 a:link {
     text-decoration: none;
@@ -154,19 +163,78 @@ a:hover, .change-streamer:hover, .submit-button:hover, .guide-button:hover {
    font-size: 1.5em;
 }
 
+section {
+  display: flex;
+  justify-content: center;
+}
 .bot-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   padding: 5px;
   background-color:#252A3D;
 }
 
 .game-summary {
-  width: 100%;
+  width: 80%;
   font-size: .75em;
   border: 2px solid black;
   margin-bottom: 10px;
   padding: 15px;
+}
+
+.describe-switch {
+  font-size: .75em;
+  display: flex;
+}
+
+.background-switch {
+  position: relative;
+  display: flex; 
+  width: 60px;
+  height: 34px;
+}
+
+.background-switch input {display:none;}
+
+ .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+} 
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.slider-plate:checked + .slider {
+  background-color: #2196F3;
+}
+
+.slider-plate:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.slider-plate:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 footer {
@@ -210,10 +278,14 @@ footer {
     font-size: 1em;
   }
 
-  .change-streamer, .streamer-name {
+  .streamer-name {
     width: 37%;
     font-size: 1em;
     min-height: 35px;
+  }
+
+  .change-streamer, .stream-filter, .filter-label {
+    font-size: 1em;
   }
 
   a:hover, .change-streamer:hover, .submit-button:hover {

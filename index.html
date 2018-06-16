@@ -7,7 +7,7 @@
     <link href="main.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
   </head>
-  <body>
+  <body class="background">
     <div class="top-container">
       <header>
           <h1>Watch Games</h1>
@@ -18,9 +18,10 @@
        Search a game to get started!<br> 
        <ul class ="instructions"> Once you find a game you can: <br>
          <li> - Click "Change Streamer" to switch to a random streamer.</li>
-         <li> - Filter the randomly selected streamer by the top 25,50 or 100 viewers.</li>
+         <li> - Filter the randomly selected streamer by the top 10,25,50,100 or 500 most viewers.</li>
          <li> - Select "random" for a completely random streamer</li>
          <li> - Scroll to the bottom for a description of the game</li>
+         <li> - If you do not like the background image, you can toggle it off at the bottom-left side of the page</li>
        </ul>
       </div>
     </div>
@@ -33,7 +34,15 @@
       <main role="main" class="main-content" aria-live="assertive">  
       </main>
     </div>
-    <div class="bot-container" aria-live="assertive"></div>
+    <div class="bot-container" aria-live="assertive">
+      <section>
+      </section>
+      <p class="describe-switch">Toggle Background Image:</p>
+      <label class="background-switch">
+          <input class="slider-plate" type="checkbox">
+          <span class="slider"></span>
+        </label> 
+    </div>
     <footer role="contentinfo">
       Twitch Icon made by Pixel Perfect from www.flaticon.com. Game streams provided by Twitch.tv. Game descriptions provided by Giantbomb.com. 
     </footer>

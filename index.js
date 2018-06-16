@@ -76,12 +76,16 @@ function getRandomNumber(num) {
   let randomNumber;
   if (num === 'random') {
     randomNumber = getRandomInt(totalStreams);
+  } else if (num === '10') {
+    randomNumber = getRandomInt(10);
   } else if (num === '25') {
     randomNumber = getRandomInt(25);
   } else if (num === '50') {
     randomNumber = getRandomInt(50);
   } else if (num === '100') {
     randomNumber = getRandomInt(100);
+  } else if (num === '500') {
+    randomNumber = getRandomInt(500);
   }
   return randomNumber;
 }
@@ -115,9 +119,11 @@ function renderTwitchResult(result) {
             <label for="changing-stream" class="filter-label">Filter Streamers:</label>
             <select name="stream-filter" class="stream-filter">
             <option value="random">Random</option>
+            <option value="10">Top 10</option>
             <option value="25">Top 25</option>
             <option value="50">Top 50</option>
             <option value="100">Top 100</option>
+            <option value="500">Top 500</option>
             </select>
             <button type="submit" class="change-streamer">Change Streamer</button>
             </form>
@@ -132,9 +138,9 @@ function displayButton() {
 function displayGameInfo(data) {
   if (STATE.twitchSearchResults._total !== 0) {
     const bombResults = data.results.map(item => renderGiantBombResult(item)).join('');
-    $('.bot-container').html(bombResults);
+    $('section').html(bombResults);
   } else {
-    $('.bot-container').html(errors.giantBombError);
+    $('section').html(errors.giantBombError);
   }
 }
 
@@ -201,12 +207,19 @@ function watchGuideButton() {
   });
 }
 
+function watchBackgroundSwitch() {
+  $('.slider').click(() => {
+    $('body').toggleClass('background');
+  });
+}
+
 // functions for loading all event listeners
 
 function loadPage() {
   watchSubmit();
   watchChangeStream();
   watchGuideButton();
+  watchBackgroundSwitch();
 }
 
 
