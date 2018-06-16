@@ -66,6 +66,7 @@ li {
 }
 
 .twitch-search-form {
+  margin-top: 15px;
   width: 100%;
   font-family: 'Aldrich', sans-serif;
   background: white;
@@ -80,7 +81,7 @@ li {
   width: 100%;
   border-radius: 2.5px;
   border: 1px solid black;
-  font-size: .8em;
+  font-size: 1.25em;
   color: black;
   margin-bottom: 2px; 
   text-align: left;
