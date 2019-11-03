@@ -27,7 +27,7 @@
 }
 
 .header-banner {
-  width: 100%;
+  width: 75%;
 }
 
 header {
@@ -81,7 +81,7 @@ li {
   width: 100%;
   border-radius: 2.5px;
   border: 1px solid black;
-  font-size: 1.25em;
+  font-size: 1em;
   color: black;
   margin-bottom: 2px; 
   text-align: left;
@@ -94,7 +94,7 @@ li {
   border: 1px solid black;
   color: black;
   text-align: center;
-  font-size: 1.25em;
+  font-size: .75;
 }
 
 .mid-container {
@@ -102,9 +102,13 @@ li {
   padding: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   padding-bottom: 1.5%;
   margin: 2.5px;
+}
+
+.stream-section {
+  width: 100%;
 }
 
 .streamer-name {
@@ -287,10 +291,10 @@ footer {
 @media only screen and (min-width: 850px) {
 
   .header-banner {
-    width: 50%;
+    width: 25%;
   }
   header {
-    font-size: 1.75em;
+    font-size: 1.50em;
   }
 
   .guide-description {
@@ -316,21 +320,50 @@ footer {
     margin-right: 5px;
     margin-bottom: 0px;
   }
+
+  .stream-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .stream-content-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin: 15px
+  }
+
+
   .submit-button {
     width: 13%;
     font-size: 1em;
   }
 
+  .stream-video {
+    border-radius: 5px;
+    border: 1px solid black
+  }
+
   .streamer-name {
-    width: 37%;
-    font-size: 1.25em;
-    min-height: 35px;
+    width: 90%;
+    min-height: 50px;
+    padding: 10px;
   }
 
   .rank-label {
-    width: 15%;
-    font-size: 1em;
+    width: 90%;
     min-height: 25px;
+  }
+
+  .change-stream-form {
+    border: 1px solid white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 20%;
   }
 
   .change-streamer, .stream-filter, .filter-label {
@@ -367,6 +400,9 @@ footer {
     width: 840px;
     height: 630px;
   } 
+    .stream-content-section {
+      height: 625px;
+    }
 }
 
 @media only screen and (min-width: 1366px) {
@@ -374,4 +410,7 @@ footer {
     width: 940px;
     height: 705px;
   } 
+  .stream-content-section {
+    height: 700px;
+  }
 }

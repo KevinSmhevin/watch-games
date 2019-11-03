@@ -144,9 +144,6 @@ function renderGiantBombResult(result) {
 function renderTwitchResult(result) {
   return `
         <div class="stream-section">
-    
-            <a href="" target="_blank" class="streamer-name">Watching: ${result.user_name}</a>
-            <div class="rank-label">Top: ${STATE.randomNumber + 1}</div>
             <iframe
                 class="stream-video"
                 src="https://player.twitch.tv/?channel=${result.user_name}"
@@ -157,18 +154,24 @@ function renderTwitchResult(result) {
                 allowfullscreen="true"
                 autoplay="true">
             </iframe><br>
+            <div class="stream-content-section">
+              <div class="stream-title-section">
+                <a href="https://www.twitch.tv/${result.user_name}" target="_blank" class="streamer-name">Watching: ${result.user_name}</a>
+                <div class="rank-label">Top: ${STATE.randomNumber + 1}</div>
+              </div>
             <form action='#' role="form" class="change-stream-form">
-            <label for="changing-stream" class="filter-label">Filter Streamers:</label>
-            <select name="stream-filter" class="stream-filter">
-            <option value="random">Random</option>
-            <option value="10">Top 10</option>
-            <option value="25">Top 25</option>
-            <option value="50">Top 50</option>
-            <option value="100">Top 100</option>
-            </select>
-            <button type="submit" class="change-streamer">Change Streamer</button>
+              <label for="changing-stream" class="filter-label">Filter Streamers:</label>
+                <select name="stream-filter" class="stream-filter">
+                  <option value="random">Random</option>
+                  <option value="10">Top 10</option>
+                  <option value="25">Top 25</option>
+                  <option value="50">Top 50</option>
+                  <option value="100">Top 100</option>
+                </select>
+              <button type="submit" class="change-streamer">Change Streamer</button>
             </form>
-        </div>
+            </div>
+          </div>
         `;
 }
 
