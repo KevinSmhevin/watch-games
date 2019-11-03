@@ -8,7 +8,7 @@
 }
 
 .background {
-  background: url('pics/shattered-island.gif') bottom center fixed;  
+  background: url('pics/shattered-island.gif') center fixed;  
   /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -98,7 +98,7 @@ li {
 }
 
 .mid-container {
-  min-height: 65vh;
+  min-height: 45vh;
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -202,6 +202,7 @@ section {
 
 .bot-container {
   display: flex;
+  min-height: 15vh;
   justify-content: center;
   flex-direction: column;
   padding: 5px;

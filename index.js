@@ -1,7 +1,9 @@
 // all global variables declared
-/* global $ */
+/* eslint-disable */ 
+/* global $ alert */
 
-const TWITCH_STREAM_URL = 'https://api.twitch.tv/kraken/streams/';
+const TWITCH_GAME_URL = 'https://api.twitch.tv/helix/games';
+const TWITCH_STREAM_URL = 'https://api.twitch.tv/helix/streams';
 const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
 let totalStreams;
 
@@ -33,8 +35,8 @@ const errors = {
 
 // AJAX or JSONP query functions for API request
 
-function getGameInfo(searchGame, callback) {
-  const queryData = {
+const createQueryToGiantBomb = (searchGame) =>
+  ({
     url: GIANTBOMB_SEARCH_URL,
     data: {
       api_key: '90c7bce2628d7e30be2c973efd4ed4bec505aa14',
@@ -47,23 +49,65 @@ function getGameInfo(searchGame, callback) {
     type: 'GET',
     crossDomain: true,
     jsonp: 'json_callback',
-    success: callback,
-  };
+  });
+
+  const createQueryToTwitchGames = (searchGame) =>
+  ({
+    url: TWITCH_GAME_URL,
+    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
+    data: {
+      name: `${searchGame}`,
+      format: 'json',
+    },
+    dataType: 'json',
+    type: 'GET',
+  });
+
+  const createQueryToTwitchStreams = (searchID) => 
+  ({
+    url: TWITCH_STREAM_URL,
+    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
+    data: {
+      game_id: searchID,
+      first: 100,
+    },
+    dataType: 'json',
+    type: 'GET',
+  });
+
+const addSuccessCallback = (settings, callback) => {
+  settings.success = callback;
+  return settings
+};
+const addErrorCallback = (settings) => {
+  settings.error = (err) => {
+    alert('oops, something went wrong. Try again.');
+    console.error(err);
+  }
+  return settings
+};
+function getGameInfo(searchGame, callback) {
+  let queryData = createQueryToGiantBomb(searchGame);
+  queryData = addSuccessCallback(queryData, callback);
+  queryData = addErrorCallback(queryData);
   $.ajax(queryData);
 }
 
-function getGameStream(searchGame, callback, randomNumber) {
-  const twitchQueryData = {
-    client_id: 'fa5umnj3xn4y05ao1vlqcwn66enqph',
-    game: `${searchGame}`,
-    query: `${searchGame}`,
-    stream_type: 'live',
-    format: 'jsonp',
-    limit: 1,
-    offset: randomNumber,
-  };
-  $.getJSON(TWITCH_STREAM_URL, twitchQueryData, callback);
+
+function getGameName(searchGame, callback, number) {
+  let queryData = createQueryToTwitchGames(searchGame, number);
+  queryData = addSuccessCallback(queryData, callback);
+  queryData = addErrorCallback(queryData);
+  $.ajax(queryData);
 }
+
+function getGameStream(callback, number) {
+  let queryData = createQueryToTwitchStreams(`${STATE.twitchSearchGamesResults.data[0].id}`, number)
+  queryData = addSuccessCallback(queryData, callback);
+  queryData = addErrorCallback(queryData);
+  $.ajax(queryData)
+}
+
 
 // math functions for obtaining a random number and random streamer
 
@@ -74,7 +118,7 @@ function getRandomInt(max) {
 function getRandomNumber(num) {
   let randomNumber;
   if (num === 'random') {
-    randomNumber = getRandomInt(totalStreams);
+    randomNumber = getRandomInt(100);
   } else if (num === '10') {
     randomNumber = getRandomInt(10);
   } else if (num === '25') {
@@ -83,9 +127,7 @@ function getRandomNumber(num) {
     randomNumber = getRandomInt(50);
   } else if (num === '100') {
     randomNumber = getRandomInt(100);
-  } else if (num === '500') {
-    randomNumber = getRandomInt(500);
-  }
+  } 
   return randomNumber;
 }
 
@@ -103,11 +145,11 @@ function renderTwitchResult(result) {
   return `
         <div class="stream-section">
     
-            <a href="${result.channel.url}" target="_blank" class="streamer-name">Watching: ${result.channel.name}</a>
+            <a href="" target="_blank" class="streamer-name">Watching: ${result.user_name}</a>
             <div class="rank-label">Top: ${STATE.randomNumber + 1}</div>
             <iframe
                 class="stream-video"
-                src="https://player.twitch.tv/?channel=${result.channel.name}"
+                src="https://player.twitch.tv/?channel=${result.user_name}"
                 height="300"
                 width="400"M
                 frameborder="2"
@@ -123,7 +165,6 @@ function renderTwitchResult(result) {
             <option value="25">Top 25</option>
             <option value="50">Top 50</option>
             <option value="100">Top 100</option>
-            <option value="500">Top 500</option>
             </select>
             <button type="submit" class="change-streamer">Change Streamer</button>
             </form>
@@ -136,7 +177,7 @@ function displayButton() {
 }
 
 function displayGameInfo(data) {
-  if (STATE.twitchSearchResults._total !== 0) {
+  if (STATE.twitchSearchResults !== null || STATE.twitchSearchResults !== undefined ) {
     const bombResults = data.results.map(item => renderGiantBombResult(item)).join('');
     $('section').html(bombResults);
   } else {
@@ -145,22 +186,30 @@ function displayGameInfo(data) {
 }
 
 function displayTwitchStream(data) {
-  if (STATE.twitchSearchResults._total === 0) {
+  if (STATE.twitchSearchGamesResults === undefined || STATE.twitchSearchGamesResults === null ) {
     $('.main-content').html(errors.noGameError);
-  } else if (STATE.twitchSearchResults._total < STATE.randomNumber) {
-    $('.main-content').html(errors.notEnoughStreamsError);
-  } else if (STATE.query === '') {
+  } 
+  // else if (STATE.twitchSearchResults._total < STATE.randomNumber) {
+  //   $('.main-content').html(errors.notEnoughStreamsError);
+  // } 
+  else if (STATE.query === '') {
     $('.main-content').html(errors.noUserInput);
   } else {
-    const results = data.streams.map(item => renderTwitchResult(item)).join('');
+    let results
+    // const results = data.map(item => renderTwitchResult(item)).join('');
+    if (STATE.randomNumber !== undefined) {
+      results = renderTwitchResult(data.data[STATE.randomNumber])
+    } else {
+      results = renderTwitchResult(data.data[0])
+    }
     $('.main-content').html(results);
     $('.guide-description').prop('hidden', true);
   }
 }
 
 function render(state) {
-  totalStreams = STATE.twitchSearchResults._total;
-  displayTwitchStream(state.twitchSearchResults);
+  // totalStreams = STATE.twitchSearchResults._total;
+  displayTwitchStream(state.twitchSearchIDResults);
   displayGameInfo(state.giantBombSearchResults);
   displayButton();
 }
@@ -172,8 +221,13 @@ function processGiantBombSearchResults(data) {
   render(STATE);
 }
 
-function processTwitchSearchResults(data) {
-  STATE.twitchSearchResults = data;
+function processTwitchSearchResults(data, number) {
+  STATE.twitchSearchGamesResults = data;
+  getGameStream(processTwitchIDSearchResults, number)
+}
+
+function processTwitchIDSearchResults(data) {
+  STATE.twitchSearchIDResults = data
   render(STATE);
 }
 
@@ -186,7 +240,7 @@ function watchSubmit() {
     const queryTarget = $(event.currentTarget).find('.search-query');
     STATE.query = queryTarget.val();
     queryTarget.val('');
-    getGameStream(STATE.query, processTwitchSearchResults);
+    getGameName(STATE.query, processTwitchSearchResults);
     getGameInfo(STATE.query, processGiantBombSearchResults);
   });
 }
@@ -196,7 +250,8 @@ function watchChangeStream() {
     event.preventDefault();
     STATE.filter = $('.stream-filter').val();
     STATE.randomNumber = getRandomNumber(STATE.filter);
-    getGameStream(STATE.query, processTwitchSearchResults, STATE.randomNumber);
+    displayTwitchStream(STATE.twitchSearchIDResults)
+    // getGameName(STATE.query, processTwitchSearchResults, STATE.randomNumber);
   });
 }
 
