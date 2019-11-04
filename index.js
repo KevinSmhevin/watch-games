@@ -195,6 +195,9 @@ function displayTwitchStream(data) {
   // else if (STATE.twitchSearchResults._total < STATE.randomNumber) {
   //   $('.main-content').html(errors.notEnoughStreamsError);
   // } 
+  else if (data === undefined || data === null) {
+    $('.main-content').html(errors.noGameError);
+  }
   else if (STATE.query === '') {
     $('.main-content').html(errors.noUserInput);
   } else {
@@ -243,6 +246,7 @@ function watchSubmit() {
     const queryTarget = $(event.currentTarget).find('.search-query');
     STATE.query = queryTarget.val();
     queryTarget.val('');
+    STATE.twitchSearchIDResults = null;
     getGameName(STATE.query, processTwitchSearchResults);
     getGameInfo(STATE.query, processGiantBombSearchResults);
   });
