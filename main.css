@@ -24,11 +24,10 @@
   flex-direction: column;
   justify-content: center;
   background-color: steelblue;
-  margin: 1px;
 }
 
 .header-banner {
-  width: 75%;
+  width: 50%;
 }
 
 header {
@@ -322,7 +321,8 @@ footer {
 @media only screen and (min-width: 850px) {
 
   .header-banner {
-    width: 25%;
+    max-width: 12.5%;
+    height: auto;
   }
 
   .guide-description {

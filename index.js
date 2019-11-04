@@ -135,7 +135,7 @@ function getRandomNumber(num) {
 
 function renderGiantBombResult(result) {
   return `
-        <div class="game-summary"> ${result.name} Summary:
+        <div class="game-summary"> ${result.name} Summary:<br><br>
             ${result.deck}
         </div>
         `;
