@@ -253,6 +253,7 @@ function watchChangeStream() {
     event.preventDefault();
     STATE.filter = $('.stream-filter').val();
     STATE.randomNumber = getRandomNumber(STATE.filter);
+    getGameInfo(STATE.query, processGiantBombSearchResults);
     displayTwitchStream(STATE.twitchSearchIDResults)
     // getGameName(STATE.query, processTwitchSearchResults, STATE.randomNumber);
   });
