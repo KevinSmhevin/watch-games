@@ -239,6 +239,10 @@ section {
   flex-direction: column;
   padding: 5px;
   background-color:steelblue;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .game-summary {
@@ -316,6 +320,10 @@ footer {
   padding: 5px;
   background-color: steelblue;
   font-size: .5em;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
 }
 
 /*  CSS section meant for laptop/computer screens */
