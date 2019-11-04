@@ -135,7 +135,7 @@ function getRandomNumber(num) {
 
 function renderGiantBombResult(result) {
   return `
-        <div class="game-summary"> ${result.name} Summary:<br>
+        <div class="game-summary"> ${result.name} Summary:
             ${result.deck}
         </div>
         `;
@@ -182,7 +182,7 @@ function displayButton() {
 function displayGameInfo(data) {
   if (STATE.twitchSearchResults !== null || STATE.twitchSearchResults !== undefined ) {
     const bombResults = data.results.map(item => renderGiantBombResult(item)).join('');
-    $('section').html(bombResults);
+    $('.stream-content-section').append(bombResults);
   } else {
     $('section').html(errors.giantBombError);
   }
