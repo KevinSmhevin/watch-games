@@ -4,13 +4,14 @@
 
 const TWITCH_GAME_URL = 'https://api.twitch.tv/helix/games';
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/helix/streams';
+const TWITCH_TOP_GAMES_URL = 'https://api.twitch.tv/helix/games/top';
 const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
 let totalStreams;
 
 // object for storing dynamic query data
 const STATE = {
   query: '',
-  filter: '',
+  filter: 'Random',
   randomNumber: undefined,
 };
 
@@ -51,6 +52,17 @@ const createQueryToGiantBomb = (searchGame) =>
     jsonp: 'json_callback',
   });
 
+  const createQueryToTwitchTopGames = () => ({
+    url: TWITCH_TOP_GAMES_URL,
+    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
+    data: {
+      format: 'json',
+      first: 20
+    },
+    dataType: 'json',
+    type: 'GET',
+  })
+
   const createQueryToTwitchGames = (searchGame) =>
   ({
     url: TWITCH_GAME_URL,
@@ -86,6 +98,7 @@ const addErrorCallback = (settings) => {
   }
   return settings
 };
+
 function getGameInfo(searchGame, callback) {
   let queryData = createQueryToGiantBomb(searchGame);
   queryData = addSuccessCallback(queryData, callback);
@@ -93,6 +106,12 @@ function getGameInfo(searchGame, callback) {
   $.ajax(queryData);
 }
 
+function getTopGames(callback) {
+  let queryData = createQueryToTwitchTopGames();
+  queryData = addSuccessCallback(queryData, callback);
+  queryData = addErrorCallback(queryData);
+  $.ajax(queryData);
+}
 
 function getGameName(searchGame, callback, number) {
   let queryData = createQueryToTwitchGames(searchGame, number);
@@ -163,11 +182,12 @@ function renderTwitchResult(result) {
             <form action='#' role="form" class="change-stream-form">
               <label for="changing-stream" class="filter-label">Filter Streamers:</label>
                 <select name="stream-filter" class="stream-filter">
-                  <option value="random">Random</option>
+                  <option value="${STATE.filter}">${STATE.filter}</option>
                   <option value="10">Top 10</option>
                   <option value="25">Top 25</option>
                   <option value="50">Top 50</option>
                   <option value="100">Top 100</option>
+                  <option value="random">Random</option>
                 </select>
               <button type="submit" class="change-streamer"><i class="fas fa-random"></i></button>
             </form>
