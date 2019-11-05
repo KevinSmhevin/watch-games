@@ -492,6 +492,14 @@ footer {
     max-height: 250px;
   }
 
+  .summary-title {
+    font-size: 14px;
+  }
+
+  .game-description {
+    font-size: 14px;
+  }
+
   footer {
     font-size: .75em;
   }

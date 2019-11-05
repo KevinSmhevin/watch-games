@@ -421,6 +421,7 @@ function onPageLoad() {
 function watchGamesClick() {
   $('.main-content').on('click', '.top-games-box', (event) => {
     event.preventDefault()
+    STATE.randomNumber = 0;
     const queryTarget = $(event.currentTarget).find('h4')
     STATE.query = queryTarget.html()
     STATE.twitchSearchIDResults = null;
