@@ -158,6 +158,7 @@ function renderTwitchResult(result) {
               <div class="stream-title-section">
                 <a href="https://www.twitch.tv/${result.user_name}" target="_blank" class="streamer-name">Watching: ${result.user_name}</a>
                 <div class="rank-label">Top: ${STATE.randomNumber + 1}</div>
+                <div class="viewer-count"><i class="fas fa-user"></i> &nbsp;&nbsp;&nbsp; ${result.viewer_count}</div>
               </div>
             <form action='#' role="form" class="change-stream-form">
               <label for="changing-stream" class="filter-label">Filter Streamers:</label>
@@ -168,7 +169,7 @@ function renderTwitchResult(result) {
                   <option value="50">Top 50</option>
                   <option value="100">Top 100</option>
                 </select>
-              <button type="submit" class="change-streamer">Change Streamer</button>
+              <button type="submit" class="change-streamer"><i class="fas fa-random"></i></button>
             </form>
             </div>
           </div>
