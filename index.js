@@ -13,6 +13,7 @@ const STATE = {
   query: '',
   filter: 'Random',
   randomNumber: undefined,
+  tabIndex: 0
 };
 
 // object for storing error messages
@@ -57,7 +58,7 @@ const createQueryToGiantBomb = (searchGame) =>
     headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
     data: {
       format: 'json',
-      first: 20
+      first: 21
     },
     dataType: 'json',
     type: 'GET',
@@ -154,10 +155,143 @@ function getRandomNumber(num) {
 
 function renderGiantBombResult(result) {
   return `
-        <div class="game-summary"> <h4>${result.name} Summary:</h4><br><br>
-            ${result.deck}
+        <div class="game-summary"> <h4 class="summary-title">${result.name} Summary:</h4><br><br>
+            <p class="game-description">${result.deck}</p>
         </div>
         `;
+}
+
+
+
+function renderTwitchTopGameResults(result) {
+  for (let i=0; i<result.data.length; i++) {
+    result.data[i].box_art_url = result.data[i].box_art_url.replace("{width}", "194")
+    result.data[i].box_art_url = result.data[i].box_art_url.replace("{height}", "258")
+  }
+  console.log(result)
+  return `
+    <h2> Current Top Games </h2>
+    <br>
+    <div class ="top-games-container">
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[0].name}</h4>
+        <img src="${result.data[0].box_art_url}" class="top-games-img" alt="${result.data[0].name}">
+        </article>      
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[1].name}</h4>
+        <img src ="${result.data[1].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+          <h4>${result.data[2].name}</h4>
+          <img src ="${result.data[2].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[3].name}</h4>
+        <img src ="${result.data[3].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[4].name}</h4>
+        <img src ="${result.data[4].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[5].name}</h4>
+        <img src ="${result.data[5].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[6].name}</h4>
+        <img src ="${result.data[6].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[7].name}</h4>
+        <img src ="${result.data[7].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[8].name}</h4>
+        <img src ="${result.data[8].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[9].name}</h4>
+        <img src ="${result.data[9].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[10].name}</h4>
+        <img src ="${result.data[10].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[11].name}</h4>
+        <img src ="${result.data[11].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[12].name}</h4>
+        <img src ="${result.data[12].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[13].name}</h4>
+        <img src ="${result.data[13].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[14].name}</h4>
+        <img src ="${result.data[14].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[15].name}</h4>
+        <img src ="${result.data[15].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+      <div class ="top-games-box">
+        <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+        <h4>${result.data[16].name}</h4>
+        <img src ="${result.data[16].box_art_url}" class="top-games-img">
+        </article>
+      </div>
+    <div class ="top-games-box">
+      <article role="article" class="image-box" tabindex=${STATE.tabIndex}>
+      <h4>${result.data[17].name}</h4>
+      <img src ="${result.data[17].box_art_url}" class="top-games-img">
+      </article>
+    </div>
+    <div class ="top-games-box">
+
+      <h4>${result.data[18].name}</h4>
+      <img src ="${result.data[18].box_art_url}" class="top-games-img">
+    </div>
+    <div class ="top-games-box">
+    <h4>${result.data[19].name}</h4>
+    <img src ="${result.data[19].box_art_url}" class="top-games-img">
+  </div>
+    </div>
+    `
 }
 
 function renderTwitchResult(result) {
@@ -177,7 +311,7 @@ function renderTwitchResult(result) {
               <div class="stream-title-section">
                 <a href="https://www.twitch.tv/${result.user_name}" target="_blank" class="streamer-name">Watching: ${result.user_name}</a>
                 <div class="rank-label">Top: ${STATE.randomNumber + 1}</div>
-                <div class="viewer-count"><i class="fas fa-user"></i> &nbsp;&nbsp;&nbsp; ${result.viewer_count}</div>
+                <div class="viewer-count"><i class="fas fa-user"></i> &nbsp; ${result.viewer_count}</div>
               </div>
             <form action='#' role="form" class="change-stream-form">
               <label for="changing-stream" class="filter-label">Filter Streamers:</label>
@@ -208,7 +342,16 @@ function displayGameInfo(data) {
     $('section').html(errors.giantBombError);
   }
 }
-
+function displayTopGames(data) {
+  if (STATE.twitchTopGameResults === undefined || STATE.twitchTopGameResults === null) {
+    $('.main-content').html(errors.noGameError);
+  }
+  else if (data === undefined || data === null) {
+    $('.main-content').html(errors.noGameError);
+  }
+  let results = renderTwitchTopGameResults(data)
+  $('.main-content').html(results);
+}
 function displayTwitchStream(data) {
   if (STATE.twitchSearchGamesResults === undefined || STATE.twitchSearchGamesResults === null ) {
     $('.main-content').html(errors.noGameError);
@@ -241,6 +384,11 @@ function render(state) {
   displayButton();
 }
 
+function renderHomePage(state) {
+  displayTopGames(state.twitchTopGameResults);
+  displayButton();
+}
+
 // functions for processing search results
 
 function processGiantBombSearchResults(data) {
@@ -248,6 +396,10 @@ function processGiantBombSearchResults(data) {
   render(STATE);
 }
 
+function processTopTwitchGameResults(data) {
+  STATE.twitchTopGameResults = data;
+  renderHomePage(STATE);
+}
 function processTwitchSearchResults(data, number) {
   STATE.twitchSearchGamesResults = data;
   getGameStream(processTwitchIDSearchResults, number)
@@ -259,7 +411,23 @@ function processTwitchIDSearchResults(data) {
 }
 
 // event listener functions
+function onPageLoad() {
+  $('.header-banner').click((event) => {
+    event.preventDefault();
+    getTopGames(processTopTwitchGameResults);
+  })
+}
 
+function watchGamesClick() {
+  $('.main-content').on('click', '.top-games-box', (event) => {
+    event.preventDefault()
+    const queryTarget = $(event.currentTarget).find('h4')
+    STATE.query = queryTarget.html()
+    STATE.twitchSearchIDResults = null;
+    getGameName(STATE.query, processTwitchSearchResults);
+    getGameInfo(STATE.query, processGiantBombSearchResults);
+  })
+}
 function watchSubmit() {
   $('.twitch-search-form').submit((event) => {
     event.preventDefault();
@@ -272,6 +440,7 @@ function watchSubmit() {
     getGameInfo(STATE.query, processGiantBombSearchResults);
   });
 }
+
 
 function watchChangeStream() {
   $('.main-content').on('click', '.change-streamer', (event) => {
@@ -300,6 +469,9 @@ function watchBackgroundSwitch() {
 // functions for loading all event listeners
 
 function loadPage() {
+  getTopGames(processTopTwitchGameResults)
+  onPageLoad();
+  watchGamesClick();
   watchSubmit();
   watchChangeStream();
   watchGuideButton();
