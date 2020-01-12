@@ -426,6 +426,13 @@ function onPageLoad() {
   })
 }
 
+function watchHomeButton() {
+  $('.main-content').on('click', '.home-button', (event) => {
+    event.preventDefault();
+    getTopGames(processTopTwitchGameResults)
+  })
+}
+
 function watchGamesClick() {
   $('.main-content').on('click', '.top-games-box', (event) => {
     event.preventDefault()
@@ -485,6 +492,7 @@ function loadPage() {
   watchChangeStream();
   watchGuideButton();
   watchBackgroundSwitch();
+  watchHomeButton();
 }
 
 
