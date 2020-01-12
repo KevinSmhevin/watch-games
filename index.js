@@ -22,17 +22,23 @@ const errors = {
   noGameError: `   <div class="error-message">
     Sorry, we can't find that game :(, please try searching again.
     <div>
+    <button class="home-button"><i class="fas fa-home"></i></button>
       `,
   notEnoughStreamsError: `   <div class="error-message">
     Sorry, there is not enough people streaming this game for that filter :(
     <div>
+    <button class="home-button"><i class="fas fa-home"></i></button>
         `,
   giantBombError: `<div class="error-message">
         Please try again
-        <div>`,
+        <div>
+        <button class="home-button"><i class="fas fa-home"></i></button>
+        `,
   noUserInput: `<div class="error-message">
     Please type a game in the searchbox
-  <div>`,
+  <div>
+  <button class="home-button"><i class="fas fa-home"></i></button>
+  `,
 };
 
 // AJAX or JSONP query functions for API request

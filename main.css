@@ -140,6 +140,15 @@ li {
   cursor: pointer;
 }
 
+.home-button {
+  font-size: 20px;
+  border-radius: 2.5px;
+  border: 1px outset steelblue;
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
 .mid-container {
   min-height: 45vh;
   padding: 10px;
