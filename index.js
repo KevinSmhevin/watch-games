@@ -168,7 +168,6 @@ function renderTwitchTopGameResults(result) {
     result.data[i].box_art_url = result.data[i].box_art_url.replace("{width}", "194")
     result.data[i].box_art_url = result.data[i].box_art_url.replace("{height}", "258")
   }
-  console.log(result)
   return `
     <h2> Current Top Games </h2>
     <br>
@@ -353,24 +352,27 @@ function displayTopGames(data) {
   $('.main-content').html(results);
 }
 function displayTwitchStream(data) {
+  console.log(STATE.randomNumber)
+  console.log(data.data.length)
+  $('.main-content').remove('.error-message')
   if (STATE.twitchSearchGamesResults === undefined || STATE.twitchSearchGamesResults === null ) {
     $('.main-content').html(errors.noGameError);
   } 
-  // else if (STATE.twitchSearchResults._total < STATE.randomNumber) {
-  //   $('.main-content').html(errors.notEnoughStreamsError);
-  // } 
   else if (data === undefined || data === null) {
     $('.main-content').html(errors.noGameError);
   }
   else if (STATE.query === '') {
     $('.main-content').html(errors.noUserInput);
+  }
+  else if (STATE.randomNumber > data.data.length) {
+    $('.main-content').html(errors.notEnoughStreamsError)
   } else {
     let results
     // const results = data.map(item => renderTwitchResult(item)).join('');
     if (STATE.randomNumber !== undefined) {
       results = renderTwitchResult(data.data[STATE.randomNumber])
     } else {
-      results = renderTwitchResult(data.data[0])
+      $('.main-content').html(errors.noGameError)
     }
     $('.main-content').html(results);
     $('.guide-description').prop('hidden', true);
