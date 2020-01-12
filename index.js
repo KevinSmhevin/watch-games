@@ -11,7 +11,7 @@ let totalStreams;
 // object for storing dynamic query data
 const STATE = {
   query: '',
-  filter: 'Random',
+  filter: 'random',
   randomNumber: undefined,
   tabIndex: 0
 };
