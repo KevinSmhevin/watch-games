@@ -5,6 +5,7 @@
 const TWITCH_GAME_URL = 'https://api.twitch.tv/helix/games';
 const TWITCH_STREAM_URL = 'https://api.twitch.tv/helix/streams';
 const TWITCH_TOP_GAMES_URL = 'https://api.twitch.tv/helix/games/top';
+const TWITCH_AUTH_URL =  'https://id.twitch.tv/oauth2/token';
 const GIANTBOMB_SEARCH_URL = 'https://www.giantbomb.com/api/search/';
 let totalStreams;
 
@@ -13,7 +14,9 @@ const STATE = {
   query: '',
   filter: 'random',
   randomNumber: undefined,
-  tabIndex: 0
+  tabIndex: 0,
+  pagination: '',
+  access_token: ''
 };
 
 // object for storing error messages
@@ -59,9 +62,21 @@ const createQueryToGiantBomb = (searchGame) =>
     jsonp: 'json_callback',
   });
 
-  const createQueryToTwitchTopGames = () => ({
+  const getAuthTokenForTwitch = () => ({
+    url: TWITCH_AUTH_URL,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    data: {
+      client_id: 'fa5umnj3xn4y05ao1vlqcwn66enqph',
+      client_secret: 'p8mxtcl5vix249js160h8dczk1zsv6',
+      grant_type: 'client_credentials'
+    },
+    dataType: 'json',
+    type: 'POST',
+  })
+
+  const createQueryToTwitchTopGames = (auth) => ({
     url: TWITCH_TOP_GAMES_URL,
-    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
+    headers: {'Client-Id': 'fa5umnj3xn4y05ao1vlqcwn66enqph', 'Authorization': `Bearer ${auth}`},
     data: {
       format: 'json',
       first: 21
@@ -73,7 +88,7 @@ const createQueryToGiantBomb = (searchGame) =>
   const createQueryToTwitchGames = (searchGame) =>
   ({
     url: TWITCH_GAME_URL,
-    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
+    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph', 'Authorization': `Bearer ${STATE.access_token}`},
     data: {
       name: `${searchGame}`,
       format: 'json',
@@ -82,13 +97,14 @@ const createQueryToGiantBomb = (searchGame) =>
     type: 'GET',
   });
 
-  const createQueryToTwitchStreams = (searchID) => 
+  const createQueryToTwitchStreams = (searchID, pagination = '') => 
   ({
     url: TWITCH_STREAM_URL,
-    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph'},
+    headers: {'Client-ID': 'fa5umnj3xn4y05ao1vlqcwn66enqph', 'Authorization': `Bearer ${STATE.access_token}`},
     data: {
       game_id: searchID,
       first: 100,
+      after: pagination,
     },
     dataType: 'json',
     type: 'GET',
@@ -113,11 +129,18 @@ function getGameInfo(searchGame, callback) {
   $.ajax(queryData);
 }
 
-function getTopGames(callback) {
-  let queryData = createQueryToTwitchTopGames();
+function getAuthToken(callback) {
+  let queryData = getAuthTokenForTwitch();
   queryData = addSuccessCallback(queryData, callback);
   queryData = addErrorCallback(queryData);
-  $.ajax(queryData);
+  $.ajax(queryData)
+}
+
+function getTopGames(callback) {
+    let queryData = createQueryToTwitchTopGames(STATE.access_token);
+    queryData = addSuccessCallback(queryData, callback);
+    queryData = addErrorCallback(queryData);
+    $.ajax(queryData);
 }
 
 function getGameName(searchGame, callback, number) {
@@ -127,8 +150,9 @@ function getGameName(searchGame, callback, number) {
   $.ajax(queryData);
 }
 
-function getGameStream(callback, number) {
-  let queryData = createQueryToTwitchStreams(`${STATE.twitchSearchGamesResults.data[0].id}`, number)
+function getGameStream(callback, pagination) {
+
+  let queryData = createQueryToTwitchStreams(`${STATE.twitchSearchGamesResults.data[0].id}`, pagination)
   queryData = addSuccessCallback(queryData, callback);
   queryData = addErrorCallback(queryData);
   $.ajax(queryData)
@@ -153,6 +177,8 @@ function getRandomNumber(num) {
     randomNumber = getRandomInt(50);
   } else if (num === '100') {
     randomNumber = getRandomInt(100);
+  } else if (num === '500') {
+    randomNumber = getRandomInt(500);
   } 
   return randomNumber;
 }
@@ -287,7 +313,6 @@ function renderTwitchTopGameResults(result) {
       </article>
     </div>
     <div class ="top-games-box">
-
       <h4>${result.data[18].name}</h4>
       <img src ="${result.data[18].box_art_url}" class="top-games-img">
     </div>
@@ -300,11 +325,12 @@ function renderTwitchTopGameResults(result) {
 }
 
 function renderTwitchResult(result) {
+  console.log(result)
   return `
         <div class="stream-section">
             <iframe
                 class="stream-video"
-                src="https://player.twitch.tv/?channel=${result.user_name}"
+                src="https://player.twitch.tv/?channel=${result.user_name}&parent=kevinsmhevin.github.io"
                 height="300"
                 width="400"M
                 frameborder="2"
@@ -326,6 +352,7 @@ function renderTwitchResult(result) {
                   <option value="25">Top 25</option>
                   <option value="50">Top 50</option>
                   <option value="100">Top 100</option>
+                  <option value="500">Top 500</option>
                   <option value="random">Random</option>
                 </select>
               <button type="submit" class="change-streamer"><i class="fas fa-random"></i></button>
@@ -357,9 +384,9 @@ function displayTopGames(data) {
   let results = renderTwitchTopGameResults(data)
   $('.main-content').html(results);
 }
+
 function displayTwitchStream(data) {
-  console.log(STATE.randomNumber)
-  console.log(data.data.length)
+  console.log(data)
   $('.main-content').remove('.error-message')
   if (STATE.twitchSearchGamesResults === undefined || STATE.twitchSearchGamesResults === null ) {
     $('.main-content').html(errors.noGameError);
@@ -374,7 +401,6 @@ function displayTwitchStream(data) {
     $('.main-content').html(errors.notEnoughStreamsError)
   } else {
     let results
-    // const results = data.map(item => renderTwitchResult(item)).join('');
     if (STATE.randomNumber !== undefined) {
       results = renderTwitchResult(data.data[STATE.randomNumber])
     } else {
@@ -386,7 +412,6 @@ function displayTwitchStream(data) {
 }
 
 function render(state) {
-  // totalStreams = STATE.twitchSearchResults._total;
   displayTwitchStream(state.twitchSearchIDResults);
   displayGameInfo(state.giantBombSearchResults);
   displayButton();
@@ -404,13 +429,19 @@ function processGiantBombSearchResults(data) {
   render(STATE);
 }
 
+function processAuthToken(data) {
+  console.log(data)
+
+  STATE.access_token = data.access_token
+  $(loadPage);
+}
 function processTopTwitchGameResults(data) {
   STATE.twitchTopGameResults = data;
   renderHomePage(STATE);
 }
-function processTwitchSearchResults(data, number) {
+function processTwitchSearchResults(data) {
   STATE.twitchSearchGamesResults = data;
-  getGameStream(processTwitchIDSearchResults, number)
+  getGameStream(processTwitchIDSearchResults)
 }
 
 function processTwitchIDSearchResults(data) {
@@ -422,6 +453,7 @@ function processTwitchIDSearchResults(data) {
 function onPageLoad() {
   $('.header-banner').click((event) => {
     event.preventDefault();
+    getAuthToken(processAuthToken)
     getTopGames(processTopTwitchGameResults);
   })
 }
@@ -463,9 +495,20 @@ function watchChangeStream() {
     event.preventDefault();
     STATE.filter = $('.stream-filter').val();
     STATE.randomNumber = getRandomNumber(STATE.filter);
-    getGameInfo(STATE.query, processGiantBombSearchResults);
+    // if ( STATE.randomNumber > 100 ) {
+    //   for (let i=1; i<STATE.randomNumber; i+100) {
+    //     STATE.pagination = STATE.twitchSearchIDResults.pagination.cursor 
+    //     getGameStream(STATE.twitchSearchGamesResults.data[0].id, STATE.pagination)
+    //     if (i + 99 >= STATE.randomNumber) {
+    //       STATE.randomNumber = STATE.randomNumber - i  
+    //       displayTwitchStream(STATE.twitchSearchIDResults)
+    //     }
+    //   }
+    // } else {
+    //   displayTwitchStream(STATE.twitchSearchIDResults)
+    // }
     displayTwitchStream(STATE.twitchSearchIDResults)
-    // getGameName(STATE.query, processTwitchSearchResults, STATE.randomNumber);
+    getGameInfo(STATE.query, processGiantBombSearchResults);
   });
 }
 
@@ -495,5 +538,4 @@ function loadPage() {
   watchHomeButton();
 }
 
-
-$(loadPage);
+$(getAuthToken(processAuthToken));
