@@ -446,19 +446,20 @@ function processTwitchIDSearchResults(data) {
 
 // event listener functions
 function onPageLoad() {
-  $('.header-banner').click((event) => {
+  $('.top-container').on('click', '.header-banner', (event) => {
     event.preventDefault();
-    getAuthToken(processAuthToken)
-    getTopGames(processTopTwitchGameResults);
-  })
-}
-
-function watchHomeButton() {
-  $('.main-content').on('click', '.home-button', (event) => {
-    event.preventDefault();
+    // getAuthToken(processAuthToken)
     getTopGames(processTopTwitchGameResults)
   })
 }
+
+// function watchHomeButton() {
+//   $('.main-content').on('click', '.header-banner', (event) => {
+//     event.preventDefault();
+//     // getAuthToken(processAuthToken)
+//     getTopGames(processTopTwitchGameResults)
+//   })
+// }
 
 function watchGamesClick() {
   $('.main-content').on('click', '.top-games-box', (event) => {
@@ -508,9 +509,9 @@ function watchChangeStream() {
 }
 
 function watchGuideButton() {
-  $('.guide-button').click((event) => {
+  $('.top-container').on('click', '.guide-button', (event) => {
     event.preventDefault();
-    $('.guide-description').toggle();
+      $('.guide-description').toggle(); 
   });
 }
 
@@ -530,7 +531,7 @@ function loadPage() {
   watchChangeStream();
   watchGuideButton();
   watchBackgroundSwitch();
-  watchHomeButton();
+  // watchHomeButton();
 }
 
 $(getAuthToken(processAuthToken));
