@@ -151,7 +151,7 @@ function getGameName(searchGame, callback, number) {
 }
 
 function getGameStream(callback, pagination) {
-
+  console.log(STATE.twitchSearchGamesResults)
   let queryData = createQueryToTwitchStreams(`${STATE.twitchSearchGamesResults.data[0].id}`, pagination)
   queryData = addSuccessCallback(queryData, callback);
   queryData = addErrorCallback(queryData);
@@ -325,7 +325,6 @@ function renderTwitchTopGameResults(result) {
 }
 
 function renderTwitchResult(result) {
-  console.log(result)
   return `
         <div class="stream-section">
             <iframe
@@ -386,7 +385,6 @@ function displayTopGames(data) {
 }
 
 function displayTwitchStream(data) {
-  console.log(data)
   $('.main-content').remove('.error-message')
   if (STATE.twitchSearchGamesResults === undefined || STATE.twitchSearchGamesResults === null ) {
     $('.main-content').html(errors.noGameError);
@@ -430,8 +428,6 @@ function processGiantBombSearchResults(data) {
 }
 
 function processAuthToken(data) {
-  console.log(data)
-
   STATE.access_token = data.access_token
   $(loadPage);
 }
