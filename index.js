@@ -405,7 +405,6 @@ function displayTwitchStream(data) {
       $('.main-content').html(errors.noGameError)
     }
     $('.main-content').html(results);
-    $('.guide-description').prop('hidden', true);
   }
 }
 
