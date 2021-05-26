@@ -350,7 +350,6 @@ function renderTwitchResult(result) {
                   <option value="25">Top 25</option>
                   <option value="50">Top 50</option>
                   <option value="100">Top 100</option>
-                  <option value="500">Top 500</option>
                   <option value="random">Random</option>
                 </select>
               <button type="submit" class="change-streamer"><i class="fas fa-random"></i></button>
@@ -452,13 +451,13 @@ function onPageLoad() {
   })
 }
 
-// function watchHomeButton() {
-//   $('.main-content').on('click', '.header-banner', (event) => {
-//     event.preventDefault();
-//     // getAuthToken(processAuthToken)
-//     getTopGames(processTopTwitchGameResults)
-//   })
-// }
+function watchHomeButton() {
+  $('.main-content').on('click', '.home-button', (event) => {
+    event.preventDefault();
+    // getAuthToken(processAuthToken)
+    getTopGames(processTopTwitchGameResults)
+  })
+}
 
 function watchGamesClick() {
   $('.main-content').on('click', '.top-games-box', (event) => {
@@ -530,7 +529,7 @@ function loadPage() {
   watchChangeStream();
   watchGuideButton();
   watchBackgroundSwitch();
-  // watchHomeButton();
+  watchHomeButton();
 }
 
 $(getAuthToken(processAuthToken));
