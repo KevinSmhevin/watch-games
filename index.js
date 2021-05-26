@@ -151,7 +151,6 @@ function getGameName(searchGame, callback, number) {
 }
 
 function getGameStream(callback, pagination) {
-  console.log(STATE.twitchSearchGamesResults)
   let queryData = createQueryToTwitchStreams(`${STATE.twitchSearchGamesResults.data[0].id}`, pagination)
   queryData = addSuccessCallback(queryData, callback);
   queryData = addErrorCallback(queryData);
