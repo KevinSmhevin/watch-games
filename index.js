@@ -328,7 +328,7 @@ function renderTwitchResult(result) {
         <div class="stream-section">
             <iframe
                 class="stream-video"
-                src="https://player.twitch.tv/?channel=${result.user_name}&parent=kevinparas.me&parent=kevinsmhevin.github.io&parent=www.kevinparas.me&parent=kevinsmhevin.github.io"
+                src="https://player.twitch.tv/?channel=${result.user_name}&parent=kevinparas.me&parent=kevinsmhevin.github.io&parent=www.kevinparas.me&parent=www.kevinsmhevin.github.io"
                 height="300"
                 width="400"M
                 frameborder="2"
